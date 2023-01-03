@@ -143,10 +143,3 @@ router.delete('/deleteuser/:id', async (req, res) => {
 
 module.exports = router
 
-try{
-  console.write(write.message)
-  res.
-}
-catch{
-
-}
