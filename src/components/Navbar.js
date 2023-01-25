@@ -21,10 +21,11 @@ const Navbar = () => {
               <Link className="nav-link" to="/contact">Contact</Link>
             </li>
           </ul>
-          <form className="d-flex" role="search">
-            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-            <button className="btn btn-outline-success btn-light" type="submit">Search</button>
-          </form>
+
+            <Link className='btn btn-outline-primary btn-light' to="/login">Login</Link>
+            {/* <button className="btn btn-outline-primary btn-light">Login</button> */}
+            <Link className="btn btn-outline-primary btn-light mx-2" to="/signup">Sign Up</Link>
+          
         </div>
       </div>
     </nav>
