@@ -33,7 +33,7 @@ const Login = () => {
             body: JSON.stringify({ email, password })
         });
         const res = await response.json();
-        console.log(res)
+        // console.log(res)
 
         // getAllThread();
         setLogin({ email: "", password: "" });

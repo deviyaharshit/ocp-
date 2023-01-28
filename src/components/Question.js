@@ -42,12 +42,11 @@ const Question = () => {
                     </div>
                 </div>
 
-                <div class="col">
+                {!localStorage.getItem('OCPtoken') ? <div className='col text-center text-danger h2 my-3'>Please, Logged In To Solve This Challenge</div> : <div class="col">
                     <div className="monaco-editor my-3">
                         <Editor
                             height="80vh"
                             theme="vs-dark"
-                            defaultLanguage="javascript"
                             defaultValue="// some comment"
                         />
                     </div>
@@ -58,15 +57,9 @@ const Question = () => {
                         </div>
                     </div>
 
-                </div>
+                </div>}
 
             </div>
-
-
-
-
-
-
 
         </div>
     )

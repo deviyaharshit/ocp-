@@ -33,7 +33,7 @@ const Signup = () => {
             body: JSON.stringify({ name, email, password })
         });
         const res = await response.json();
-        console.log(res)
+        // console.log(res)
 
         // getAllThread();
         setSignup({ name: "", email: "", password: "" });
