@@ -39,6 +39,13 @@ router.get('/fetchallquestion', async (req, res) => {
     res.json(question);
 })
 
+// Route 2.2 : Get all Question Detail of particular question using : GET "/api/question/questiondetail". No Login required
+
+router.get('/questiondetail/:title', async (req, res) => {
+    const ques = await Question.find({ title: req.params.title });
+    res.json(ques);
+})
+
 // Route 3 : Delete an existing Question using : DELETE "api/question/deletequestion". No Login Required
 
 router.delete('/deletequestion/:id', async (req, res) => {

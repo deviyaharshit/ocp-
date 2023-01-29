@@ -1,29 +1,76 @@
 import Editor from '@monaco-editor/react';
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import Footer from './Footer';
+import Navbar from './Navbar';
 
 const Question = () => {
 
     const { que } = useParams();
     const [question, setQuestion] = useState([])
+    const [code, setCode] = useState("");
+    const [ques, setQues] = useState("");
+    const [cat, setCat] = useState("");
+    const navigate = useNavigate();
+
+    const handleEditorChange = (e, value) => {
+        setCode(e);
+        setQues(que);
+        setCat(question[0].category);
+        // console.log(ques, cat)
+    }
+
+    const submit = async () => {
+
+        const response = await fetch("http://localhost:5000/api/code/addcode", {
+            
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem('OCPtoken')
+            },
+            body: JSON.stringify({ question: ques, usercode: code, category: cat })
+        });
+        const res = await response.json();
+        console.log(res)
+
+        setCode("");
+        alert("Code Submitted Successfully")
+        navigate(`/questions/${cat}`);
+    }
 
     const fetchAllQuestion = async () => {
-        const response = await fetch(`http://localhost:5000/api/question/fetchallquestion`);
+        const response = await fetch(`http://localhost:5000/api/question/questiondetail/${que}`);
         const json = await response.json();
         setQuestion(json);
     }
 
+    // const fetchDet = () => {
+    //     question.map((q) => {
+    //         if (q.title === que) {
+    //             setQues(q.title);
+    //             setCat(q.category);
+    //         }
+    //         return "";
+    //     })
+    // }
+
     useEffect(() => {
         fetchAllQuestion();
+        // fetchDet();
     }, [])
 
     return (
+        <>
+
+        <Navbar />
+
         <div className='container'>
 
-            <div class="row">
+            <div className="row">
 
-                <div class="col">
+                <div className="col">
                     <div className="row my-3">
                         {question.map((q) => (
                             q.title === que ? (
@@ -42,18 +89,20 @@ const Question = () => {
                     </div>
                 </div>
 
-                {!localStorage.getItem('OCPtoken') ? <div className='col text-center text-danger h2 my-3'>Please, Logged In To Solve This Challenge</div> : <div class="col">
+                {!localStorage.getItem('OCPtoken') ? <div className='col text-center text-danger h2 my-3'>Please, Logged In To Solve This Challenge</div> : <div className="col">
+
                     <div className="monaco-editor my-3">
                         <Editor
                             height="80vh"
                             theme="vs-dark"
-                            defaultValue="// some comment"
+                            onChange={handleEditorChange}
+                            defaultValue="// Start Coding Here"
                         />
                     </div>
 
                     <div className="submit-btn mb-4">
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-primary" type="button">Submit Code</button>
+                        <div className="d-grid gap-2">
+                            <button className="btn btn-primary" type="button" onClick={() => { submit() }}>Submit Code</button>
                         </div>
                     </div>
 
@@ -62,6 +111,10 @@ const Question = () => {
             </div>
 
         </div>
+
+        <Footer />
+
+        </>
     )
 }
 

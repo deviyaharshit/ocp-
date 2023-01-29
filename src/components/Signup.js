@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import Footer from './Footer';
+import Navbar from './Navbar';
 
 const Signup = () => {
 
@@ -50,6 +52,10 @@ const Signup = () => {
     }
 
     return (
+        <>
+
+        <Navbar />
+
         <div>
             <section className="vh-100" style={{ backgroundColor: "rgb(152, 217, 241)" }}>
                 <div className="container h-100">
@@ -119,6 +125,10 @@ const Signup = () => {
                 </div>
             </section>
         </div>
+
+        <Footer />
+
+        </>
     )
 }
 
