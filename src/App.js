@@ -1,7 +1,10 @@
 import { Route, Routes } from "react-router-dom";
 import About from "./components/About";
+import Admincode from "./components/Admin/Admincode";
 import Adminhome from "./components/Admin/Adminhome";
 import Adminlogin from "./components/Admin/Adminlogin";
+import Adminque from "./components/Admin/Adminque";
+import Adminuser from "./components/Admin/Adminuser";
 import Contact from "./components/Contact";
 import Home from "./components/Home";
 import Login from "./components/Login";
@@ -25,6 +28,9 @@ function App() {
 
         <Route path="/admin/login" element={<Adminlogin />}></Route>
         <Route path="/admin" element={<Adminhome />}></Route>
+        <Route path="/admin/allquestion" element={<Adminque />}></Route>
+        <Route path="/admin/allcode" element={<Admincode />}></Route>
+        <Route path="/admin/alluser" element={<Adminuser />}></Route>
       </Routes>
     </>
   );
