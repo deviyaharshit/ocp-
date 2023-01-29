@@ -1,8 +1,18 @@
 import React from 'react'
+import Footer from './Footer'
+import Navbar from './Navbar'
 
 const About = () => {
   return (
-    <div>About page</div>
+    <>
+    <Navbar />
+
+    <div className='container'>
+      <h2 className='text-center my-4'>About Page</h2>
+    </div>
+
+    <Footer />
+    </>
   )
 }
 

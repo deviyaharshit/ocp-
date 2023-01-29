@@ -1,7 +1,64 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+import Footer from './Footer';
+import Navbar from './Navbar';
 
 const Login = () => {
+
+    const navigate = useNavigate();
+    
+    const [login, setLogin] = useState({
+        email: "",password: ""
+    });
+
+    let name, value;
+    const handleInputs = (e) => {
+        // console.log(e);
+        name = e.target.name;
+        value = e.target.value;
+
+        setLogin({ ...login, [name]: value });
+    }
+    const PostData = async (e) => {
+        e.preventDefault();
+
+        const { email, password } = login;
+
+        const response = await fetch(`http://localhost:5000/api/auth/login`, {
+            // mode: "no-cors",
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // 'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjJjNmY4NGRmZGFhYjEwZDFmMWFmZDVlIn0sImlhdCI6MTY1ODE0NjM3M30.8ntK3bNSi9hvj7bXP6fZyDbTfmB6GKzfxbKufifBnyY'
+                // 'auth-token': localStorage.getItem('token')
+            },
+            body: JSON.stringify({ email, password })
+        });
+        const res = await response.json();
+        // console.log(res)
+
+        // getAllThread();
+        setLogin({ email: "", password: "" });
+
+        if (res.success) {
+            // localStorage.setItem("token", json.authToken);
+            // navigate("/");
+            // props.showAlert("Account Created Successfully","success");
+            localStorage.setItem("OCPtoken", res.authToken);
+            // alert("Successfully Login");
+            navigate("/");
+          }else {
+            // props.showAlert("Invalid Details","danger");
+            // if(res.errors[0].msg!='')
+            //     alert(res.errors[0].msg);
+            alert("Error Occured");
+          }
+    }
+
     return (
+        <>
+        <Navbar />
+
         <div>
             <section className="vh-100" style={{ backgroundColor: "rgb(152, 217, 241)" }}>
                 <div className="container h-100">
@@ -14,14 +71,14 @@ const Login = () => {
 
                                             <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login Form</p>
 
-                                            <form className="mx-1 mx-md-4">
+                                            <form className="mx-1 mx-md-4" method='POST' onSubmit={PostData}>
 
                                                 
 
                                                 <div className="d-flex flex-row align-items-center mb-4">
                                                     <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                                     <div className="form-outline flex-fill mb-0">
-                                                        <input type="email" id="form3Example3c" className="form-control border-primary" />
+                                                        <input type="email" onChange={handleInputs} name="email" value={login.email} id="form3Example3c" className="form-control border-primary" minLength={5} required />
                                                         <label className="form-label">Your Email</label>
                                                     </div>
                                                 </div>
@@ -29,7 +86,7 @@ const Login = () => {
                                                 <div className="d-flex flex-row align-items-center mb-4">
                                                     <i className="fas fa-lock fa-lg me-3 fa-fw"></i>
                                                     <div className="form-outline flex-fill mb-0">
-                                                        <input type="password" id="form3Example4c" className="form-control border-primary" />
+                                                        <input type="password" onChange={handleInputs} name="password" value={login.password} id="form3Example4c" className="form-control border-primary" minLength={6} required />
                                                         <label className="form-label">Password</label>
                                                     </div>
                                                 </div>
@@ -37,7 +94,7 @@ const Login = () => {
                                                 
 
                                                 <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                                                    <button type="button" className="btn btn-primary btn-lg">Login</button>
+                                                    <button type="submit" className="btn btn-primary btn-lg">Login</button>
                                                 </div>
 
                                             </form>
@@ -57,6 +114,9 @@ const Login = () => {
                 </div>
             </section>
         </div>
+
+        <Footer />
+        </>
     )
 }
 

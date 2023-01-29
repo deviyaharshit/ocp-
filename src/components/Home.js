@@ -2,6 +2,8 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import Categorycard from './Categorycard'
+import Navbar from './Navbar'
+import Footer from './Footer'
 
 const Home = () => {
 
@@ -20,12 +22,18 @@ const Home = () => {
   }, [])
 
   return (
+    <>
+    <Navbar />
+
     <div className='container'>
       <div className="my-3">
         <h2 className='my-3'>Categories</h2>
         <Categorycard questions={questions} />
       </div>
     </div>
+
+    <Footer />
+    </>
   )
 }
 

@@ -2,6 +2,8 @@ import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom'
+import Footer from './Footer';
+import Navbar from './Navbar';
 import Questioncard from './Questioncard';
 
 const Questions = () => {
@@ -20,6 +22,9 @@ const Questions = () => {
     }, [])
 
     return (
+        <>
+        <Navbar />
+
         <div className='container'>
             <div className="text-center my-3"><h2>All Questions - {cat}</h2></div>
             <div className="row my-4">
@@ -28,6 +33,9 @@ const Questions = () => {
             ))}
             </div>
         </div>
+
+        <Footer />
+        </>
     )
 }
 
