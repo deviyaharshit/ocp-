@@ -45,17 +45,6 @@ const Question = () => {
         const json = await response.json();
         setQuestion(json);
     }
-
-    // const fetchDet = () => {
-    //     question.map((q) => {
-    //         if (q.title === que) {
-    //             setQues(q.title);
-    //             setCat(q.category);
-    //         }
-    //         return "";
-    //     })
-    // }
-
     useEffect(() => {
         fetchAllQuestion();
         // fetchDet();
